@@ -26,11 +26,11 @@ for file in $(echo $DOTFILES_ZSH/environment/*.zsh); do
 done
 
 if [[ ! -L $DOTFILES_ZSH/environment/secret ]]; then
-  if [[ ! -n $VC_MOUNT_PRIVATE ]]; then
-    echo "set VC_MOUNT_PRIVATE"
+  if [[ ! -n $ENCFS_MOUNT_PRIVATE ]]; then
+    echo "set ENCFS_MOUNT_PRIVATE"
     exit 1
   else
-    ln -s $VC_MOUNT_PRIVATE/secret_environment_variables $DOTFILES_ZSH/environment/secret
+    ln -s $ENCFS_MOUNT_PRIVATE/secret_environment_variables $DOTFILES_ZSH/environment/secret
     for file in $(echo $DOTFILES_ZSH/environment/secret/*.zsh); do
       source $file
     done
@@ -44,3 +44,6 @@ fi
 for file in $(echo $DOTFILES_ZSH/aliases/*.zsh); do
   source $file
 done
+
+# added by travis gem
+[ -f /home/solarce/.travis/travis.sh ] && source /home/solarce/.travis/travis.sh
